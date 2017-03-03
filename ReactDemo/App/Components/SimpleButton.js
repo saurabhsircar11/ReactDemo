@@ -8,11 +8,15 @@ import React, {Component}from 'react';
 export default class SimpleButton extends Component{
   render(){
     return(
-      <TouchableOpacity onPress={ () => console.log('Pressed!')}>
+      <TouchableOpacity onPress={this.props.onPress}>
       <View>
-      <Text>SimpleButton</Text>
+      <Text>{this.props.customText || 'Simple Button'}</Text>
       </View>
       </TouchableOpacity>
     );
   }
 }
+SimpleButton.propTypes={
+  onPress:React.PropTypes.func.isRequired,
+  customText:React.PropTypes.string
+};
