@@ -3,15 +3,18 @@ import {
   AppRegistry,
   Navigator,
   StyleSheet,
+  Text,
   View
 } from 'react-native';
 
 import SimpleButton from './App/Components/SimpleButton';
 import NoteScreen from './App/Components/NoteScreen';
+import HomeScreen from './App/Components/HomeScreen';
 
-var NavigationBarRouteMapper  ={
+var NavigationBarRouteMapper ={
 LeftButton:function(route,navigator,index,navState)
-{switch(route.name){
+{
+  switch(route.name){
   case 'createNote':
   return(
     <SimpleButton
@@ -28,7 +31,6 @@ RightButton:function(route,navigator,index,navState)
   switch(route.name){
     case 'home':
     return(
-      <View style= {styles.container}>
       <SimpleButton
       onPress={()=>{
         navigator.push({
@@ -38,35 +40,29 @@ RightButton:function(route,navigator,index,navState)
       customText='Create note'
       />
     );
-    default:
-    return null;
+    default:return null;
+}
 },
-Title:function(route,navigator,index,navState)
+Title: function(route,navigator,index,navState)
 {
-  switch (route.name) {
-    case 'home':return(<Text>React Notes</Text);
-
-    case 'createNote': return(<Text>Create Note</Text>);
-        
+  switch(route.name) {
+    case 'home': return(
+      <Text>React Notes</Text>
+    );
+    case 'createNote' : return(
+      <Text>Create Note</Text>
+    );
   }
 }
 };
 
 class ReactDemo extends Component {
+
   renderScene(route,navigator){
     switch(route.name){
       case 'home':
       return(
-        <View style= {styles.container}>
-        <SimpleButton
-        onPress={()=>{
-          navigator.push({
-            name: 'createNote'
-          });
-        }}
-        customText='Create note'
-        />
-        </View>
+        <HomeScreen/>
       );
       case 'createNote':
       return(
@@ -78,9 +74,11 @@ class ReactDemo extends Component {
     return(
       <Navigator
       initialRoute={{name:'home'}}
-      renderScene={this.renderScene}/>
-      navigation={<Navigator.NavigationBar routeMapper={NavigationBarRouteMapper}
+      renderScene={this.renderScene}
+      navigationBar={
+        <Navigator.NavigationBar routeMapper={NavigationBarRouteMapper}
     />}
+    />
     );
   }
 }
